@@ -1,7 +1,7 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // Easier communication with MongoDB
 const authRoutes = require('./routes/authRoutes');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); // Cookie handling
 
 const app = express();
 
@@ -25,17 +25,3 @@ app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));
 app.use(authRoutes);
 
-// cookies
-
-app.get('/set-cookies', ((req, res) => {
-    // res.setHeader('Set-Cookie', 'newUser=true;SameSite=strict');
-    res.cookie('newUser', false, {maxAge: 1000 * 60 * 60 * 24, secure: true, httpOnly: true});
-    res.cookie('isEmployee', true, {maxAge: 1000 * 60 * 60 * 24, secure: true, httpOnly: true});
-    res.send('you got the cookie !');
-}));
-
-app.get('/get-cookies', (req, res) => {
-    const cookies = req.cookies;
-    console.log(cookies.newUser);
-    res.json(cookies);
-});
